@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.bvents.bvfriends.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ClientPlayerInteractionManagerMixin",
+    "FriendGlowMixin",
+    "MinecraftClientMixin",
+    "PlayerListHudMixin",
+    "PlayerEntityMixin",
+    "SafeScoreboardMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

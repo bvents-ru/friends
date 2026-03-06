@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "bvfriends",
+  "version": "${version}",
+  "name": "BVFriends",
+  "description": "ВАУ! крутой мод, подпишусь-ка я на тгк разраба",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/bvfriends/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.bvents.bvfriends.client.BvfriendsClient"
+    ],
+    "main": [
+      "com.bvents.bvfriends.Bvfriends"
+    ],
+    "modmenu": [
+      "com.bvents.bvfriends.client.compat.ModMenuCompat"
+    ]
+  },
+  "mixins": [
+    "bvfriends.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "${loader_version_range}",
+    "fabric-api": "${fabric_api_version_range}",
+    "minecraft": "${minecraft_version_range}",
+    "yet_another_config_lib_v3": "${yacl_version_range}"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
