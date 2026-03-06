@@ -6,6 +6,7 @@
   "client": [
     "ClientPlayerInteractionManagerMixin",
     "FriendGlowMixin",
+    "KeyBindingCategoryAccessor",
     "MinecraftClientMixin",
     "PlayerListHudMixin",
     "PlayerEntityMixin",

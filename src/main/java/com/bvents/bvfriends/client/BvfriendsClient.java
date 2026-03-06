@@ -31,13 +31,17 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.glfw.GLFW;
+import com.bvents.bvfriends.mixin.KeyBindingCategoryAccessor;
+import java.util.List;
 
 public class BvfriendsClient implements ClientModInitializer {
     private static final String FRIEND_TEAM_NAME = "bvfriends_local";
+    private static final KeyBinding.Category BVFRIENDS_KEYS_CATEGORY = KeyBinding.Category.create(Identifier.of("bvfriends", "keys"));
     private static final double FRIEND_TOGGLE_DISTANCE = 40.0;
     private static final long TOGGLE_COOLDOWN_MS = 250L;
     private static final Set<UUID> LOCAL_GLOW_PLAYERS = ConcurrentHashMap.newKeySet();
@@ -50,6 +54,7 @@ public class BvfriendsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BvfriendsConfigManager.load();
+        ensureCategoryPosition();
         registerKeybinds();
         registerTickHandlers();
         registerCommands();
@@ -60,14 +65,22 @@ public class BvfriendsClient implements ClientModInitializer {
                 "key.bvfriends.toggle_friend",
                 InputUtil.Type.MOUSE,
                 GLFW.GLFW_MOUSE_BUTTON_MIDDLE,
-                KeyBinding.Category.MISC
+                BVFRIENDS_KEYS_CATEGORY
         ));
         openConfigKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.bvfriends.open_config",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_UNKNOWN,
-                KeyBinding.Category.MISC
+                BVFRIENDS_KEYS_CATEGORY
         ));
+    }
+
+    private static void ensureCategoryPosition() {
+        List<KeyBinding.Category> categories = KeyBindingCategoryAccessor.bvfriends$getCategories();
+        categories.remove(BVFRIENDS_KEYS_CATEGORY);
+        int vanillaCategoryCount = 8;
+        int insertIndex = Math.min(vanillaCategoryCount, categories.size());
+        categories.add(insertIndex, BVFRIENDS_KEYS_CATEGORY);
     }
 
     private void registerTickHandlers() {
